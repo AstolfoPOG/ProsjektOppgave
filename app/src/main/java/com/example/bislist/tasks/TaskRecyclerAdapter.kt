@@ -6,11 +6,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bislist.databinding.TaskLayoutBinding
 import com.example.bislist.tasks.data.Task
 
-class TaskCollectionAdapter(private val tasks:MutableList<Task>) : RecyclerView.Adapter<TaskCollectionAdapter.ViewHolder>(){
+class TaskRecyclerAdapter(private var tasks:List<Task>, private val onTaskClicked:(Task) -> Unit) : RecyclerView.Adapter<TaskRecyclerAdapter.ViewHolder>(){
 
     class ViewHolder(val binding:TaskLayoutBinding):RecyclerView.ViewHolder(binding.root) {
-        fun bind(task: Task) {
+        fun bind(task: Task, onTaskClicked:(Task) -> Unit) {
             binding.title.text = task.titel
+
+            binding.card.setOnClickListener {
+                onTaskClicked(task)
+            }
         }
     }
 
@@ -18,7 +22,7 @@ class TaskCollectionAdapter(private val tasks:MutableList<Task>) : RecyclerView.
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val task = tasks[position]
-        holder.bind(task)
+        holder.bind(task, onTaskClicked)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,9 +30,8 @@ class TaskCollectionAdapter(private val tasks:MutableList<Task>) : RecyclerView.
     }
 
 
-    public fun updateCollection(newTasks:MutableList<Task>){
-        tasks.clear()
-        tasks.addAll(newTasks)
+    public fun updateCollection(newTasks:List<Task>){
+        tasks = newTasks
         notifyDataSetChanged()
     }
 
