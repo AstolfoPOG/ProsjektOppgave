@@ -49,6 +49,9 @@ class TaskDetailActivity : AppCompatActivity(){
         taskActivityAdapter = TaskActivityRecyclerAdapter(task.tasks)
         binding.activityListing.adapter = taskActivityAdapter
 
+        TaskDepoManger.instance.onTaskActivity = {
+            (binding.activityListing.adapter as TaskActivityRecyclerAdapter).updateTaskActivityCollection(it)
+        }
 
         binding.saveBtActivity.setOnClickListener {
 

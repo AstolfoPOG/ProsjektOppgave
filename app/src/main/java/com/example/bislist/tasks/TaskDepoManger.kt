@@ -10,7 +10,7 @@ class TaskDepoManger {
     private lateinit var taskCollection: MutableList<Task>
 
     var onTask: ((List<Task>) -> Unit)? = null
-    var onTaskUpdate:((task:Task) -> Unit)? = null
+    var onTaskUpdate:((List<Task>) -> Unit)? = null
     var onTaskActivity: ((List<TaskActivity>) -> Unit)? = null
 
     fun loadTask() {
@@ -32,8 +32,8 @@ class TaskDepoManger {
         onTask?.invoke(taskCollection)
     }
 
-    fun updateTask(task: Task){
-        onTaskUpdate?.invoke(task)
+    fun updateTask(){
+        onTaskUpdate?.invoke(taskCollection)
     }
 
 
@@ -44,7 +44,8 @@ class TaskDepoManger {
 
     fun addActivity(task: Task, taskActivity: TaskActivity){
         task.tasks.add(taskActivity)
-        onTask?.invoke(taskCollection)
+        onTaskActivity?.invoke(task.tasks)
+        updateTask()
     }
 
     companion object {
