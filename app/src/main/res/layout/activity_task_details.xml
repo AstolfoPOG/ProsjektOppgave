@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    android:backgroundTint="@color/teal_200"
+    android:backgroundTint="@color/black"
+    android:background="@color/black"
     android:clickable="true"
     android:focusable="true">
 
@@ -64,6 +65,9 @@
             android:id="@+id/activityName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/teal_200"
+            android:textColorHint="@color/teal_200"
+            android:textColor="@color/teal_200"
             android:hint="Activity Name" />
 
         <Button
