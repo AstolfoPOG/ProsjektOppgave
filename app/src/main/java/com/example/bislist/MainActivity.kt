@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bislist.databinding.ActivityMainBinding
+import com.example.bislist.tasks.TaskActivityDepoManger
 import com.example.bislist.tasks.TaskRecyclerAdapter
 import com.example.bislist.tasks.TaskDepoManger
 import com.example.bislist.tasks.TaskDetailActivity
 import com.example.bislist.tasks.data.Task
+import com.example.bislist.tasks.data.TaskActivity
 
 
 const val EXTRA_TASK_INFO: String = "com.example.bislist.task.info"
@@ -43,18 +45,19 @@ class MainActivity : AppCompatActivity() {
 
         binding.saveBt.setOnClickListener {
             val title = binding.title.text.toString()
-            val state = false
 
             binding.title.setText("")
 
-            addTask(title,state)
+            addTask(title)
         }
+
 
     }
 
 
-    private fun addTask(title: String, state: Boolean){
-        val task = Task(title, state)
+    private fun addTask(title: String){
+        val task = Task(title, tasks = mutableListOf())
+
         if (title.isNotEmpty())
             TaskDepoManger.instance.addTask(task)
         else{
@@ -63,6 +66,9 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+
+
 
     private fun onTaskClicked(task: Task): Unit{
 
