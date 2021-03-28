@@ -24,6 +24,13 @@
             android:text="Task Titel" />
 
 
-    </LinearLayout>
 
+    </LinearLayout>
+    <Button
+        android:id="@+id/removeActivityBt"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="300dp">
+    </Button>
 </androidx.cardview.widget.CardView>

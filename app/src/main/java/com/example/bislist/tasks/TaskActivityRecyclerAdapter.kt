@@ -3,6 +3,7 @@ package com.example.bislist.tasks
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bislist.TaskHolder
 import com.example.bislist.databinding.ActivityTaskDetailsBinding
 import com.example.bislist.databinding.TaskActivityLayoutBinding
 import com.example.bislist.tasks.data.Task
@@ -15,6 +16,9 @@ class TaskActivityRecyclerAdapter(private var taskActivitys:List<TaskActivity>) 
         fun bind(taskActivity: TaskActivity) {
             binding.activityName.text = taskActivity.activityName
 
+            binding.removeActivityBt.setOnClickListener {
+                TaskHolder.PickedTask?.let { it1 -> TaskDepoManger.instance.removeActivity(task = it1, taskActivity = taskActivity) }
+            }
         }
     }
 

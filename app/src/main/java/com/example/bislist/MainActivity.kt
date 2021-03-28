@@ -69,7 +69,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
     private fun onTaskClicked(task: Task): Unit{
 
 
