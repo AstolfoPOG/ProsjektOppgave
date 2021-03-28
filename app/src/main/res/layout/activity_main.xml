@@ -9,12 +9,32 @@
     tools:context=".MainActivity">
 
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
+        android:id="@+id/linearAppTitle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/mainTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:textColor="@color/teal_200"
+            android:layout_gravity="center"
+            android:textSize="30sp"
+            android:text="BisList">
+        </TextView>
+
+    </LinearLayout>
+
+    <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/addMainTask"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearAppTitle"
         tools:layout_editor_absoluteX="0dp">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -23,12 +43,12 @@
             <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/taskListing"
             android:layout_width="match_parent"
-            android:layout_height="620dp">
+            android:layout_height="wrap_content">
 
             </androidx.recyclerview.widget.RecyclerView>
 
         </RelativeLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/addMainTask"

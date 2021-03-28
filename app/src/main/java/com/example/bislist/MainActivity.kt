@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bislist.databinding.ActivityMainBinding
-import com.example.bislist.tasks.TaskActivityDepoManger
 import com.example.bislist.tasks.TaskRecyclerAdapter
 import com.example.bislist.tasks.TaskDepoManger
 import com.example.bislist.tasks.TaskDetailActivity
