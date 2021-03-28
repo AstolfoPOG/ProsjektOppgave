@@ -58,6 +58,8 @@ class TaskDetailActivity : AppCompatActivity(){
             val activityname = binding.activityName.text.toString()
 
 
+            binding.activityName.setText("")
+
             createActivity(activityname)
 
             val ipm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager

@@ -2,6 +2,7 @@ package com.example.bislist.tasks
 
 import android.text.style.TextAppearanceSpan
 import android.widget.Toast
+import com.example.bislist.TaskHolder
 import com.example.bislist.tasks.data.Task
 import com.example.bislist.tasks.data.TaskActivity
 
@@ -44,6 +45,17 @@ class TaskDepoManger {
 
     fun addActivity(task: Task, taskActivity: TaskActivity){
         task.tasks.add(taskActivity)
+        onTaskActivity?.invoke(task.tasks)
+        updateTask()
+    }
+
+    fun removeTask(task: Task){
+        taskCollection.remove(task)
+        onTask?.invoke(taskCollection)
+        updateTask()
+    }
+    fun removeActivity(task: Task, taskActivity: TaskActivity){
+        task.tasks.remove(taskActivity)
         onTaskActivity?.invoke(task.tasks)
         updateTask()
     }
