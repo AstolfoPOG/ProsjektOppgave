@@ -5,4 +5,4 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class TaskActivity(val activityName:String, val state:Boolean): Parcelable
+data class TaskActivity(val activityName:String, var state:Boolean): Parcelable
