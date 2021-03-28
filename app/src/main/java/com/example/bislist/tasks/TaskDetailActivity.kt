@@ -5,11 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bislist.EXTRA_TASK_INFO
+import com.example.bislist.R
 import com.example.bislist.TaskHolder
 import com.example.bislist.databinding.ActivityTaskDetailsBinding
 import com.example.bislist.databinding.TaskLayoutBinding
@@ -17,6 +19,7 @@ import com.example.bislist.tasks.TaskActivityRecyclerAdapter
 import com.example.bislist.tasks.data.Task
 import com.example.bislist.tasks.data.TaskActivity
 import kotlinx.android.synthetic.main.activity_task_details.*
+import kotlinx.android.synthetic.main.task_activity_layout.*
 
 
 class TaskDetailActivity : AppCompatActivity(){
@@ -46,7 +49,7 @@ class TaskDetailActivity : AppCompatActivity(){
         binding.title.text = task.taskTitle
 
         binding.activityListing.layoutManager = LinearLayoutManager(this)
-        taskActivityAdapter = TaskActivityRecyclerAdapter(task.tasks)
+        taskActivityAdapter = TaskActivityRecyclerAdapter(task.tasks, this::onActivityClicked)
         binding.activityListing.adapter = taskActivityAdapter
 
         TaskDepoManger.instance.onTaskActivity = {
@@ -74,6 +77,15 @@ class TaskDetailActivity : AppCompatActivity(){
             TaskHolder.PickedTask?.let { TaskDepoManger.instance.addActivity(it, taskActivity) }
         }else{
             Toast.makeText(this, "enter text", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun onActivityClicked(taskActivity: TaskActivity): Unit{
+        taskActivity.state = !taskActivity.state
+        println(taskActivity.state)
+
+        if (taskActivity.state){
+
         }
     }
 

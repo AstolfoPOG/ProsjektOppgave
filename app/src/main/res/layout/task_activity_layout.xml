@@ -10,7 +10,7 @@
     android:focusable="true"
     app:contentPadding="24dp"
     app:cardCornerRadius="4dp"
-    android:backgroundTint="@color/DarkRed">
+    app:cardBackgroundColor="@color/DarkRed">
 
     <LinearLayout
         android:layout_width="match_parent"
