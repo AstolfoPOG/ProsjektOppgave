@@ -3,12 +3,9 @@ package com.example.bislist.tasks
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.ColorInt
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bislist.TaskHolder
-import com.example.bislist.databinding.ActivityTaskDetailsBinding
 import com.example.bislist.databinding.TaskActivityLayoutBinding
-import com.example.bislist.tasks.data.Task
 import com.example.bislist.tasks.data.TaskActivity
 
 
@@ -17,18 +14,21 @@ class TaskActivityRecyclerAdapter(private var taskActivitys:List<TaskActivity>, 
     class ViewHolder(val binding: TaskActivityLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(taskActivity: TaskActivity, onActivityClicked: (TaskActivity) -> Unit) {
             binding.activityName.text = taskActivity.activityName
-
+            activityColor(taskActivity)
             binding.removeActivityBt.setOnClickListener {
                 TaskHolder.PickedTask?.let { it1 -> TaskDepoManger.instance.removeActivity(task = it1, taskActivity = taskActivity)
                 }
             }
             binding.card2.setOnClickListener {
                 onActivityClicked(taskActivity)
-                if (taskActivity.state){
+                activityColor(taskActivity)
+            }
+        }
+        fun activityColor(taskActivity: TaskActivity){
+            if (taskActivity.state){
                 binding.card2.setCardBackgroundColor(Color.parseColor("#556B2F"))
-                }else{
-                    binding.card2.setCardBackgroundColor(Color.parseColor("#8B0000"))
-                }
+            }else{
+                binding.card2.setCardBackgroundColor(Color.parseColor("#8B0000"))
             }
         }
     }
@@ -48,4 +48,5 @@ class TaskActivityRecyclerAdapter(private var taskActivitys:List<TaskActivity>, 
         taskActivitys = newTaskActivity
         notifyDataSetChanged()
     }
+
 }

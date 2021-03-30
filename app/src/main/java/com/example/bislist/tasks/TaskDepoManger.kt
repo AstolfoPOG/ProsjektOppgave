@@ -18,9 +18,13 @@ class TaskDepoManger {
 
         taskCollection = mutableListOf(
                 Task("Handle Liste", tasks = mutableListOf(
-                        TaskActivity("kjøp egg", false),
+                        TaskActivity("kjøp egg", true),
                         TaskActivity("kjøp juice", false),
-                        TaskActivity("kjøp eple", false)
+                        TaskActivity("kjøp brød", false),
+                        TaskActivity("kjøp appelsin", true),
+                        TaskActivity("kjøp mjølk", false),
+                        TaskActivity("kjøp kykkling", false),
+                        TaskActivity("kjøp eple", true)
                 )),
                 Task("Film liste", tasks = mutableListOf(
                         TaskActivity("Taken 4", false),
