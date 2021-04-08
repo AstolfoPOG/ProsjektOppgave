@@ -1,10 +1,9 @@
 package com.example.bislist.tasks
 
-import android.text.style.TextAppearanceSpan
-import android.widget.Toast
-import com.example.bislist.TaskHolder
+import android.view.View
 import com.example.bislist.tasks.data.Task
 import com.example.bislist.tasks.data.TaskActivity
+import java.math.RoundingMode
 
 class TaskDepoManger {
 
@@ -17,7 +16,7 @@ class TaskDepoManger {
     fun loadTask() {
 
         taskCollection = mutableListOf(
-                Task("Handle Liste", tasks = mutableListOf(
+                Task("Handle Liste",  tasks = mutableListOf(
                         TaskActivity("kjøp egg", true),
                         TaskActivity("kjøp juice", false),
                         TaskActivity("kjøp brød", false),
@@ -25,12 +24,12 @@ class TaskDepoManger {
                         TaskActivity("kjøp mjølk", false),
                         TaskActivity("kjøp kykkling", false),
                         TaskActivity("kjøp eple", true)
-                )),
+                ), progressStatus = 0),
                 Task("Film liste", tasks = mutableListOf(
                         TaskActivity("Taken 4", false),
                         TaskActivity("jon wik ein", false),
                         TaskActivity("pirater av karibien 92", false)
-                ))
+                ), progressStatus = 0)
         )
 
 
@@ -62,6 +61,25 @@ class TaskDepoManger {
         task.tasks.remove(taskActivity)
         onTaskActivity?.invoke(task.tasks)
         updateTask()
+    }
+
+    fun progressTracker(task: Task){
+        var sant = 0
+        var tot = 0
+        for (i in task.tasks){
+            tot++
+            if (i.state){
+                sant++
+            }
+        }
+        val prosent  =  sant/tot.toDouble() * 100
+        println("tot var $tot")
+        println("samt var $sant")
+        println("prosent var $prosent")
+        task.progressStatus = prosent.toBigDecimal().setScale(0, RoundingMode.UP).toInt()
+        onTask?.invoke(taskCollection)
+        updateTask()
+
     }
 
     companion object {

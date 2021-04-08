@@ -68,6 +68,7 @@ class TaskDetailActivity : AppCompatActivity(){
             val ipm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
             ipm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
         }
+
     }
 
     private fun createActivity(activityname: String){
@@ -84,9 +85,6 @@ class TaskDetailActivity : AppCompatActivity(){
         taskActivity.state = !taskActivity.state
         println(taskActivity.state)
 
-        if (taskActivity.state){
-
-        }
     }
 
 }
