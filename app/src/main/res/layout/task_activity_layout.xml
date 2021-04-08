@@ -26,11 +26,15 @@
 
 
     </LinearLayout>
-    <Button
+    <ImageButton
         android:id="@+id/removeActivityBt"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="25dp"
+        android:layout_height="35dp"
         android:layout_marginEnd="60dp"
-        android:layout_marginStart="300dp">
-    </Button>
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="-5dp"
+        android:src="@drawable/deleteitem"
+        android:contentDescription="Delete">
+
+    </ImageButton>
 </androidx.cardview.widget.CardView>

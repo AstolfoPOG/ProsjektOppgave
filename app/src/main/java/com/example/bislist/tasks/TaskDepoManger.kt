@@ -49,6 +49,7 @@ class TaskDepoManger {
     fun addActivity(task: Task, taskActivity: TaskActivity){
         task.tasks.add(taskActivity)
         onTaskActivity?.invoke(task.tasks)
+        progressTracker(task)
         updateTask()
     }
 
@@ -72,11 +73,12 @@ class TaskDepoManger {
                 sant++
             }
         }
-        val prosent  =  sant/tot.toDouble() * 100
-        println("tot var $tot")
-        println("samt var $sant")
-        println("prosent var $prosent")
-        task.progressStatus = prosent.toBigDecimal().setScale(0, RoundingMode.UP).toInt()
+        if (sant > 0 && tot > 0) {
+            val prosent = sant / tot.toDouble() * 100
+            task.progressStatus = prosent.toBigDecimal().setScale(0, RoundingMode.UP).toInt()
+        }else{
+            task.progressStatus = 0
+        }
         onTask?.invoke(taskCollection)
         updateTask()
 
