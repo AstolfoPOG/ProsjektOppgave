@@ -7,4 +7,4 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 
 
-data class Task(val taskTitle: String, var tasks:MutableList<TaskActivity>): Parcelable
+data class Task(val taskTitle: String, var tasks:MutableList<TaskActivity>, var progressStatus: Int): Parcelable

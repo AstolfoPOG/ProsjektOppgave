@@ -6,12 +6,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bislist.TaskHolder
 import com.example.bislist.databinding.TaskLayoutBinding
 import com.example.bislist.tasks.data.Task
+import com.example.bislist.tasks.data.TaskActivity
+import java.math.RoundingMode
+import java.util.*
 
 class TaskRecyclerAdapter(private var tasks:List<Task>, private val onTaskClicked:(Task) -> Unit) : RecyclerView.Adapter<TaskRecyclerAdapter.ViewHolder>(){
 
     class ViewHolder(val binding:TaskLayoutBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(task: Task, onTaskClicked:(Task) -> Unit) {
             binding.title.text = task.taskTitle
+
+            binding.progressTracker.text = task.progressStatus.toString().plus("%")
 
             binding.card.setOnClickListener {
                 onTaskClicked(task)

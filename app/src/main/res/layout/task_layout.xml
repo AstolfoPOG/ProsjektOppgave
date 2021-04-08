@@ -21,7 +21,7 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Task Titel" />
+            android:text="Task Title" />
 
 
     </LinearLayout>
@@ -29,7 +29,18 @@
         android:id="@+id/removeTaskBt"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:backgroundTint="@color/Black"
         android:layout_marginEnd="60dp"
-        android:layout_marginStart="300dp">
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="-5dp">
+
     </Button>
+    <TextView
+        android:id="@+id/progressTracker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="200dp"
+        android:text="100%"
+        />
 </androidx.cardview.widget.CardView>

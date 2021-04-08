@@ -53,9 +53,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     private fun addTask(title: String){
-        val task = Task(title, tasks = mutableListOf())
+        val task = Task(title, tasks = mutableListOf(), progressStatus = 0)
 
         if (title.isNotEmpty())
             TaskDepoManger.instance.addTask(task)
@@ -65,8 +64,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
-
 
     private fun onTaskClicked(task: Task): Unit{
 
