@@ -25,16 +25,18 @@
 
 
     </LinearLayout>
-    <Button
+    <ImageButton
         android:id="@+id/removeTaskBt"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="25dp"
+        android:layout_height="35dp"
         android:backgroundTint="@color/Black"
         android:layout_marginEnd="60dp"
         android:layout_marginStart="300dp"
-        android:layout_marginTop="-5dp">
+        android:layout_marginTop="-5dp"
+        android:src="@drawable/deleteitem"
+        android:contentDescription="DeleteTask">
 
-    </Button>
+    </ImageButton>
     <TextView
         android:id="@+id/progressTracker"
         android:layout_width="wrap_content"
