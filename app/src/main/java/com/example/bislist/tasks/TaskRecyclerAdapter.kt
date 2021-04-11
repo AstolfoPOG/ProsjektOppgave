@@ -14,6 +14,7 @@ class TaskRecyclerAdapter(private var tasks:List<Task>, private val onTaskClicke
 
     class ViewHolder(val binding:TaskLayoutBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(task: Task, onTaskClicked:(Task) -> Unit) {
+
             binding.title.text = task.taskTitle
 
             binding.progressTracker.text = task.progressStatus.toString().plus("%")
