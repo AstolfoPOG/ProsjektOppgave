@@ -23,7 +23,6 @@ class TaskActivityRecyclerAdapter(private var taskActivitys:List<TaskActivity>, 
                 onActivityClicked(taskActivity)
                 activityColor(taskActivity)
                 TaskHolder.PickedTask?.let { it2 -> TaskDepoManger.instance.progressTracker(task = it2)}
-
             }
         }
         fun activityColor(taskActivity: TaskActivity){

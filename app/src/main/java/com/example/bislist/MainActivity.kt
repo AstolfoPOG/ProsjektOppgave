@@ -3,6 +3,7 @@ package com.example.bislist
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bislist.databinding.ActivityMainBinding
@@ -11,6 +12,9 @@ import com.example.bislist.tasks.TaskDepoManger
 import com.example.bislist.tasks.TaskDetailActivity
 import com.example.bislist.tasks.data.Task
 import com.example.bislist.tasks.data.TaskActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 const val EXTRA_TASK_INFO: String = "com.example.bislist.task.info"
@@ -25,8 +29,10 @@ class TaskHolder{
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private val TAG:String = "bisList:MainActivity"
 
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var auth:FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +56,8 @@ class MainActivity : AppCompatActivity() {
             addTask(title)
         }
 
+        auth = Firebase.auth
+        signInAnon()
 
     }
 
@@ -76,4 +84,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun signInAnon(){
+        auth.signInAnonymously().addOnSuccessListener {
+            Log.d(TAG,"Login success ${it.user.toString()}")
+        }.addOnFailureListener {
+            Log.e(TAG, "Login failed", it)
+        }
+
+    }
 }
