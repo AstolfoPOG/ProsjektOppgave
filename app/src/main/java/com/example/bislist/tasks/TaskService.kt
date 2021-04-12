@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import java.io.File
 
 class TaskService{
@@ -33,13 +34,24 @@ class TaskService{
 
     fun upload(file:Uri){
         val ref = FirebaseStorage.getInstance().reference.child("list/${file.lastPathSegment}")
-        var uploadTask = ref.putFile(file)
+        val uploadTask = ref.putFile(file)
 
         uploadTask.addOnSuccessListener {
             Log.d(TAG, "Lagret fil ${it.toString()}")
         }.addOnFailureListener {
             Log.e(TAG, "Error i lagring", it)
         }
+    }
+    fun download(file:Uri){
+        val ref = FirebaseStorage.getInstance().reference.child("list/${file.lastPathSegment}")
+        val downloadTask = ref.getFile(file)
+
+        downloadTask.addOnSuccessListener {
+            Log.d(TAG, "Hentet fil ${it.toString()}")
+        }.addOnFailureListener {
+            Log.e(TAG, "Error i henting av fil", it)
+        }
+
     }
 
     companion object {
