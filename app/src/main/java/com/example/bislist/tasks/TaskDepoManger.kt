@@ -1,6 +1,7 @@
 package com.example.bislist.tasks
 
 import android.view.View
+import android.widget.Toast
 import androidx.core.net.toUri
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
@@ -17,26 +18,25 @@ import java.math.RoundingMode
 
 class TaskDepoManger {
 
-    private lateinit var taskCollection: MutableList<Task>
+    lateinit var taskCollection: MutableList<Task>
 
     var onTask: ((List<Task>) -> Unit)? = null
     var onTaskUpdate:((List<Task>) -> Unit)? = null
     var onTaskActivity: ((List<TaskActivity>) -> Unit)? = null
 
-    fun loadTask(filePath: File?, id: String) {
 
-        val file = File(filePath,id.plus(".json"))
-        TaskService.instance.download(file.toUri())
+    fun loadTask() {
 
-        val reader = JsonReader(FileReader(file))
-
-        val gson = Gson()
-        val typeDef = object : TypeToken<MutableList<Task>>() {}.type
-        val jsonList = gson.fromJson<MutableList<Task>>(reader,typeDef)
-        taskCollection = jsonList
+        taskCollection = mutableListOf(
+                Task("Liste",  tasks = mutableListOf(
+                        TaskActivity("Aktivitet", false)
+                ), progressStatus = 0))
 
         onTask?.invoke(taskCollection)
-        reader.close()
+    }
+
+    fun updater(){
+        onTask?.invoke(taskCollection)
     }
 
     fun updateTask(){
@@ -47,6 +47,7 @@ class TaskDepoManger {
     fun addTask(task: Task){
         taskCollection.add(task)
         onTask?.invoke(taskCollection)
+        updateTask()
     }
 
     fun addActivity(task: Task, taskActivity: TaskActivity){
@@ -89,12 +90,20 @@ class TaskDepoManger {
 
 
     fun saveFile(filePath: File?, id: String){
-        val gson = GsonBuilder().setPrettyPrinting().create()
-        val jsonTaskList: String = gson.toJson(taskCollection)
-        val fileName = id.plus(".json")
-        val file = File(filePath,fileName)
-        File(filePath,fileName).writeText(jsonTaskList)
-        TaskService.instance.upload(file.toUri())
+        if (taskCollection.isEmpty()){
+            val fileName = id.plus(".json")
+            val file = File(filePath,fileName)
+            File(filePath,fileName).writeText("")
+            TaskService.instance.upload(file.toUri())
+        }else{
+            val gson = GsonBuilder().setPrettyPrinting().create()
+            val jsonTaskList: String = gson.toJson(taskCollection)
+            val fileName = id.plus(".json")
+            val file = File(filePath,fileName)
+            File(filePath,fileName).writeText(jsonTaskList)
+            TaskService.instance.upload(file.toUri())
+        }
+
 
     }
 
