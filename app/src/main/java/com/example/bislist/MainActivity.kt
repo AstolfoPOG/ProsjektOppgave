@@ -56,7 +56,8 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        TaskDepoManger.instance.loadTask(getExternalFilesDir(null),uniqID)
+        TaskService.instance.download(getExternalFilesDir(null),uniqID)
+
 
         binding.saveBt.setOnClickListener {
             val title = binding.title.text.toString()
@@ -69,7 +70,6 @@ class MainActivity : AppCompatActivity() {
         TaskDepoManger.instance.onTaskUpdate = {
             TaskDepoManger.instance.saveFile(getExternalFilesDir(null),uniqID)
         }
-
 
 
     }
