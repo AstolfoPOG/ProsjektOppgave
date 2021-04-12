@@ -1,8 +1,10 @@
 package com.example.bislist
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,11 +12,14 @@ import com.example.bislist.databinding.ActivityMainBinding
 import com.example.bislist.tasks.TaskRecyclerAdapter
 import com.example.bislist.tasks.TaskDepoManger
 import com.example.bislist.tasks.TaskDetailActivity
+import com.example.bislist.tasks.TaskService
 import com.example.bislist.tasks.data.Task
 import com.example.bislist.tasks.data.TaskActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
+import java.io.File
 
 
 const val EXTRA_TASK_INFO: String = "com.example.bislist.task.info"
@@ -27,17 +32,21 @@ class TaskHolder{
 
 }
 
+
 class MainActivity : AppCompatActivity() {
 
-    private val TAG:String = "bisList:MainActivity"
-
     private lateinit var binding: ActivityMainBinding
-    private lateinit var auth:FirebaseAuth
 
+
+    @SuppressLint("HardwareIds")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        TaskService.instance.signIn()
+        val uniqID = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
+
 
         binding.taskListing.layoutManager = LinearLayoutManager(this)
         binding.taskListing.adapter = TaskRecyclerAdapter(emptyList<Task>(), this::onTaskClicked)
@@ -56,8 +65,11 @@ class MainActivity : AppCompatActivity() {
             addTask(title)
         }
 
-        auth = Firebase.auth
-        signInAnon()
+        TaskDepoManger.instance.onTaskUpdate = {
+            TaskDepoManger.instance.saveFile(getExternalFilesDir(null),uniqID)
+        }
+
+
 
     }
 
@@ -81,15 +93,6 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, TaskDetailActivity::class.java)
 
         startActivity(intent)
-
-    }
-
-    private fun signInAnon(){
-        auth.signInAnonymously().addOnSuccessListener {
-            Log.d(TAG,"Login success ${it.user.toString()}")
-        }.addOnFailureListener {
-            Log.e(TAG, "Login failed", it)
-        }
 
     }
 }
