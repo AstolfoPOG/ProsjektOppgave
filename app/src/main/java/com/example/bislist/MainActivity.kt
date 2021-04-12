@@ -55,7 +55,8 @@ class MainActivity : AppCompatActivity() {
             (binding.taskListing.adapter as TaskRecyclerAdapter).updateCollection(it)
         }
 
-        TaskDepoManger.instance.loadTask()
+
+        TaskDepoManger.instance.loadTask(getExternalFilesDir(null),uniqID)
 
         binding.saveBt.setOnClickListener {
             val title = binding.title.text.toString()

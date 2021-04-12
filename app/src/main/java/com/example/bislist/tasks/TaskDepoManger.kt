@@ -2,13 +2,17 @@ package com.example.bislist.tasks
 
 import android.view.View
 import androidx.core.net.toUri
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
 import com.example.bislist.tasks.data.Task
 import com.example.bislist.tasks.data.TaskActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import java.io.File
+import com.google.gson.reflect.TypeToken
+import com.google.gson.stream.JsonReader
+import java.io.*
 import java.math.RoundingMode
 
 class TaskDepoManger {
@@ -19,27 +23,20 @@ class TaskDepoManger {
     var onTaskUpdate:((List<Task>) -> Unit)? = null
     var onTaskActivity: ((List<TaskActivity>) -> Unit)? = null
 
-    fun loadTask() {
+    fun loadTask(filePath: File?, id: String) {
 
-        taskCollection = mutableListOf(
-                Task("Handle Liste",  tasks = mutableListOf(
-                        TaskActivity("kjøp egg", true),
-                        TaskActivity("kjøp juice", false),
-                        TaskActivity("kjøp brød", false),
-                        TaskActivity("kjøp appelsin", true),
-                        TaskActivity("kjøp mjølk", false),
-                        TaskActivity("kjøp kykkling", false),
-                        TaskActivity("kjøp eple", true)
-                ), progressStatus = 0),
-                Task("Film liste", tasks = mutableListOf(
-                        TaskActivity("Taken 4", false),
-                        TaskActivity("jon wik ein", false),
-                        TaskActivity("pirater av karibien 92", false)
-                ), progressStatus = 0)
-        )
+        val file = File(filePath,id.plus(".json"))
+        TaskService.instance.download(file.toUri())
 
+        val reader = JsonReader(FileReader(file))
+
+        val gson = Gson()
+        val typeDef = object : TypeToken<MutableList<Task>>() {}.type
+        val jsonList = gson.fromJson<MutableList<Task>>(reader,typeDef)
+        taskCollection = jsonList
 
         onTask?.invoke(taskCollection)
+        reader.close()
     }
 
     fun updateTask(){
