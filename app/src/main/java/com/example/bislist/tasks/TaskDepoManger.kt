@@ -1,8 +1,14 @@
 package com.example.bislist.tasks
 
 import android.view.View
+import androidx.core.net.toUri
 import com.example.bislist.tasks.data.Task
 import com.example.bislist.tasks.data.TaskActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import java.io.File
 import java.math.RoundingMode
 
 class TaskDepoManger {
@@ -81,6 +87,17 @@ class TaskDepoManger {
         }
         onTask?.invoke(taskCollection)
         updateTask()
+
+    }
+
+
+    fun saveFile(filePath: File?, id: String){
+        val gson = GsonBuilder().setPrettyPrinting().create()
+        val jsonTaskList: String = gson.toJson(taskCollection)
+        val fileName = id.plus(".json")
+        val file = File(filePath,fileName)
+        File(filePath,fileName).writeText(jsonTaskList)
+        TaskService.instance.upload(file.toUri())
 
     }
 
