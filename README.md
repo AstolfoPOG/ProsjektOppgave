@@ -1,5 +1,5 @@
 # prosjektOppgave
-Repo til prosjekt oppgave 1
+
 Har laget en liste app etter kravene jeg fikk.
 Jeg valgte og gå for et ganske simplet desgin og jeg synest at det ser ganske rent og ryddig ut. 
 Valgte og kutte ut checkbox og progressbar og gikk heller for at activitys endrer farge basert på om de er true eller false.
