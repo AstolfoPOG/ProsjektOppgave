@@ -22,6 +22,7 @@ class TaskDepoManger {
 
     var onTask: ((List<Task>) -> Unit)? = null
     var onTaskUpdate:((List<Task>) -> Unit)? = null
+    var onTaskUpdateFirebase:((List<Task>) -> Unit)? = null
     var onTaskActivity: ((List<TaskActivity>) -> Unit)? = null
 
 
@@ -42,12 +43,15 @@ class TaskDepoManger {
     fun updateTask(){
         onTaskUpdate?.invoke(taskCollection)
     }
-
+    fun updateFirebase(){
+        onTaskUpdateFirebase?.invoke(taskCollection)
+    }
 
     fun addTask(task: Task){
         taskCollection.add(task)
         onTask?.invoke(taskCollection)
         updateTask()
+        updateFirebase()
     }
 
     fun addActivity(task: Task, taskActivity: TaskActivity){
@@ -55,17 +59,20 @@ class TaskDepoManger {
         onTaskActivity?.invoke(task.tasks)
         progressTracker(task)
         updateTask()
+        updateFirebase()
     }
 
     fun removeTask(task: Task){
         taskCollection.remove(task)
         onTask?.invoke(taskCollection)
         updateTask()
+        updateFirebase()
     }
     fun removeActivity(task: Task, taskActivity: TaskActivity){
         task.tasks.remove(taskActivity)
         onTaskActivity?.invoke(task.tasks)
         updateTask()
+        updateFirebase()
     }
 
     fun progressTracker(task: Task){
@@ -85,6 +92,7 @@ class TaskDepoManger {
         }
         onTask?.invoke(taskCollection)
         updateTask()
+        updateFirebase()
 
     }
 

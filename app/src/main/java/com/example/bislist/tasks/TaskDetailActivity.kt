@@ -48,12 +48,16 @@ class TaskDetailActivity : AppCompatActivity(){
         }
         binding.title.text = task.taskTitle
 
+        binding.activityprogress.text = task.progressStatus.toString().plus("%")
+
         binding.activityListing.layoutManager = LinearLayoutManager(this)
         taskActivityAdapter = TaskActivityRecyclerAdapter(task.tasks, this::onActivityClicked)
         binding.activityListing.adapter = taskActivityAdapter
 
+
         TaskDepoManger.instance.onTaskActivity = {
             (binding.activityListing.adapter as TaskActivityRecyclerAdapter).updateTaskActivityCollection(it)
+
         }
 
         binding.saveBtActivity.setOnClickListener {
@@ -68,6 +72,11 @@ class TaskDetailActivity : AppCompatActivity(){
             val ipm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
             ipm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
         }
+
+        TaskDepoManger.instance.onTaskUpdate = {
+            binding.activityprogress.text = task.progressStatus.toString().plus("%")
+        }
+
 
     }
 
