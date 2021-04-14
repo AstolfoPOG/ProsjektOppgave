@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
             addTask(title)
         }
 
-        TaskDepoManger.instance.onTaskUpdate = {
+        TaskDepoManger.instance.onTaskUpdateFirebase = {
             TaskDepoManger.instance.saveFile(getExternalFilesDir(null),uniqID)
         }
 

@@ -15,6 +15,8 @@ class TaskActivityRecyclerAdapter(private var taskActivitys:List<TaskActivity>, 
         fun bind(taskActivity: TaskActivity, onActivityClicked: (TaskActivity) -> Unit) {
             binding.activityName.text = taskActivity.activityName
             activityColor(taskActivity)
+
+
             binding.removeActivityBt.setOnClickListener {
                 TaskHolder.PickedTask?.let { it1 -> TaskDepoManger.instance.removeActivity(task = it1, taskActivity = taskActivity)}
                 TaskHolder.PickedTask?.let { it2 -> TaskDepoManger.instance.progressTracker(task = it2)}

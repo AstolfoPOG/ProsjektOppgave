@@ -14,9 +14,11 @@
         android:id="@+id/linearscroller"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+
+        >
 
 
         <TextView
@@ -24,9 +26,20 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:textColor="@color/teal_200"
-            android:layout_gravity="center"
+            android:layout_gravity="start"
             android:textSize="30sp"
             android:text="Task content" />
+
+        <TextView
+            android:id="@+id/activityprogress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/teal_200"
+            android:gravity="end"
+            android:textSize="30sp"
+            android:text="20%"/>
+
+
     </LinearLayout>
 
     <ScrollView
